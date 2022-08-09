@@ -11,6 +11,7 @@ import Video from './video';
 
 import LoginManager from '../component/login/app/LoginManager';
 import LoginRepo from '../component/login/infrastructure/LoginRepo';
+import UserRepo from '../component/users/infrastructure/userRepo';
 
 const Home: NextPage = () => {
   const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined);
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
   useEffect(()=>{
 
     const authFunc = async ()=>{
-      let loginManager = new LoginManager(new LoginRepo());
+      let loginManager = new LoginManager(new LoginRepo(), new UserRepo());
       let auth = await loginManager.isAuthenticated();
       setIsAuth(auth);
     }

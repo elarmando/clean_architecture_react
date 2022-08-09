@@ -18,6 +18,8 @@ export default class LoginInteractor
         try
         {
             let successLogin = await this.loginManager.login(username, password);
+
+            console.log("login response " + successLogin);
     
             if(successLogin)
                 window.location.href = "/";

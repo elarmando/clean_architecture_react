@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LoginInteractor from "../component/login/app/LoginInteractor";
 import LoginManager from "../component/login/app/LoginManager";
 import LoginRepo from "../component/login/infrastructure/LoginRepo";
+import UserRepo from "../component/users/infrastructure/userRepo";
 
 export default function Login()
 {
@@ -30,7 +31,8 @@ export default function Login()
 
     const createInteractor = () => {
         let loginRepo = new LoginRepo();
-        let loginManager = new LoginManager(loginRepo);
+        let usersRepo = new UserRepo();
+        let loginManager = new LoginManager(loginRepo, usersRepo);
         let interactor = new LoginInteractor(loginManager);
         return interactor;
     }

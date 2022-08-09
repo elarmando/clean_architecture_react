@@ -1,13 +1,16 @@
+import IUserRepo from "../../users/app/IUserRepo";
 import AuthData from "./AuthData";
 import ILoginRepo from "./ILoginRepo";
 
 export default class LoginManager
 {
     loginRepo: ILoginRepo;
+    usersRepo: IUserRepo;
 
-    constructor(logRepo: ILoginRepo)
+    constructor(logRepo: ILoginRepo, userRepo: IUserRepo)
     {
         this.loginRepo = logRepo;
+        this.usersRepo = userRepo;
     }
 
     async isAuthenticated(): Promise<boolean>
@@ -24,15 +27,19 @@ export default class LoginManager
 
     async login(user:string, password:string):Promise<boolean>
     {
-        if(user == "aserrato" && password == "123")
+        let users = await this.usersRepo.get();
+        
+        for(var each of users)
         {
-            var authData = new AuthData();
-            authData.user = user;
-            authData.expTime = Date.now() + (60 * 1000);
+            if(each.name === user && each.password == password)
+            {
+                var authData = new AuthData();
+                authData.user = user;
+                authData.expTime = Date.now() + (60 * 1000);
 
-            await this.loginRepo.saveAuthData(authData);
-
-            return true;
+                await this.loginRepo.saveAuthData(authData);
+                return true;
+            }
         }
 
         return false;
