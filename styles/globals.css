@@ -14,3 +14,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.membership-item{
+  cursor: pointer;
+}
+
+.membership-item.selected{
+  background-color: #0070f3;
+}
+
+.lbl-form{
+  min-width: 70px;
+  display:inline-block;
+}

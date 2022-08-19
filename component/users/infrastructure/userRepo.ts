@@ -9,11 +9,13 @@ export default class UserRepo implements IUserRepo
     constructor()
     {
         this.key = "users_video_app";
-        this.repoUtil = new RepoUtil<User>(this.key);
+        this.repoUtil = new RepoUtil<User>(this.key, ()=> new User());
+        this.repoUtil.getDefault = this.getDefaultUsers;
     }
+
     async get():Promise<User[]>
     {
-        return await this.repoUtil.get(this.getDefaultUsers);
+        return await this.repoUtil.get();
     }
 
     private getDefaultUsers(): User[]

@@ -10,12 +10,23 @@ export default class MembershipRepo implements IMembershipRepo
     constructor()
     {
         this.key = "repo_memberships";
-        this.repoUtil = new RepoUtil(this.key);
+        this.repoUtil = new RepoUtil(this.key, ()=> new Membership());
+        this.repoUtil.getDefault = this.getDefaultValues;
     }
 
     async get():Promise<Membership[]>
     {
-        return await this.repoUtil.get(this.getDefaultValues);
+        return await this.repoUtil.get();
+    }
+
+    async getById(id:string): Promise<Membership>
+    {
+        return await this.repoUtil.getById(id);
+    }
+
+    async update(id:string, newMembership: Membership):Promise<void>
+    {
+        await this.repoUtil.update(id, newMembership);
     }
 
     getDefaultValues():Membership[]
