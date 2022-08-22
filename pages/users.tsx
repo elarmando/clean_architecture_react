@@ -1,15 +1,19 @@
 import { useState } from "react";
 import User from "../component/users/app/user";
+import Layout from "../component/layout";
+import { NextPageWithLayout } from "./_app";
 
 const defaultUsers = [new User("1", "Armando", "123"), new User("2", "Juan Perez", "123")];
 
-export default function Users()
+const Users: NextPageWithLayout = ()=>
 {
     const [users, setUsers] = useState(defaultUsers);
 
     return (
         <>
-           <ul>
+            <a href="/">Return home</a>
+            <h1>Users</h1>
+            <ul>
                 {users.map(e => {
                     return <li key={e.id}> {e.name} </li>
                 })}
@@ -19,9 +23,11 @@ export default function Users()
     );
 }
 
+Users.getLayout = Layout;
 
-function NewUser()
-{
+export default Users;
+
+function NewUser() {
     return (
         <form>
             <label>username</label>

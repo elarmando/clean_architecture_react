@@ -27,3 +27,8 @@ a {
   min-width: 70px;
   display:inline-block;
 }
+
+a{
+  color:#0070f3;
+  cursor:pointer;
+}

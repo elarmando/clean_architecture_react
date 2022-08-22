@@ -1,39 +1,19 @@
 
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect, useState } from 'react';
-import styles from '../styles/Home.module.css';
+import type { NextPageWithLayout } from './_app';;
+import Layout from '../component/layout';
 
-
-import Login from './login';
-import Video from './video';
-
-import LoginManager from '../component/login/app/LoginManager';
-import LoginRepo from '../component/login/infrastructure/LoginRepo';
-import UserRepo from '../component/users/infrastructure/userRepo';
-
-const Home: NextPage = () => {
-  const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined);
-
-  useEffect(()=>{
-
-    const authFunc = async ()=>{
-      let loginManager = new LoginManager(new LoginRepo(), new UserRepo());
-      let auth = await loginManager.isAuthenticated();
-      setIsAuth(auth);
-    }
-
-    authFunc();
-  },[]);
-
-  if(isAuth == undefined)
-    return <div>Loading...</div>
-  
-  if(isAuth === true)
-    return <Video></Video>
-  
-  return (<Login></Login>)
+const Home: NextPageWithLayout = () => {
+  return (
+    <div>
+      <h1>Home</h1>
+      <ul>
+        <li><a href="/memberships">Memberships</a></li>
+        <li><a href="/users">Users</a></li>
+      </ul>
+    </div>
+  );
 }
 
-export default Home
+Home.getLayout = Layout;
+
+export default Home;
