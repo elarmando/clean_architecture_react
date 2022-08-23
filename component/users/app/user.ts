@@ -1,4 +1,4 @@
-import IEntity from "../../repos/ientity";
+import IEntity from "../../common/ientity";
 
 export default class User implements IEntity
 {

@@ -1,6 +1,6 @@
 import User from "../app/user";
 import IUserRepo from "../app/IUserRepo";
-import RepoUtil from "../../repos/repoUtil";
+import RepoUtil from "../../common/repoUtil";
 
 export default class UserRepo implements IUserRepo
 {

@@ -1,4 +1,4 @@
-import RepoUtil from "../../repos/repoUtil";
+import RepoUtil from "../../common/repoUtil";
 import Membership from "../app/membership";
 import IMembershipRepo from "../app/IRepoMembership";
 
@@ -19,6 +19,7 @@ export default class MembershipRepo implements IMembershipRepo
         return await this.repoUtil.get();
     }
 
+    
     async getById(id:string): Promise<Membership>
     {
         return await this.repoUtil.getById(id);
