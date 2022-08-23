@@ -1,29 +1,27 @@
 import { useEffect, useState } from "react";
 import Membership from "../app/membership";
+import PanelMembershipController from "../app/panelMembershipController";
 import MembershipRepo from "../infrastructure/MembershipRepo";
 import EditMembership from "./editMembership";
 
 export default function PanelMembeship(){
     const [memberships, setMemberships] = useState<Membership[]>([]);
     const [selectedMembership, setSelectedMembership] = useState<string>("");
+    const [controller, setController] = useState(new PanelMembershipController(new MembershipRepo()));
 
     useEffect(()=>{
+        controller.onMembershipsChange = (memberships) => setMemberships(memberships);
+        controller.onSelectedMembershipIdChange = (selectedMembers) => setSelectedMembership(selectedMembers);
+
         const apply = async ()=>{
-            await update();
+            await controller.load();
         };
 
         apply();
     },[]);
 
-
-    const update = async ()=>{
-        var repo = new MembershipRepo();
-        var memberships = await repo.get();
-        setMemberships(memberships);
-    }
-
     const onItemClick = (item: Membership)=>{
-        setSelectedMembership(item.id);
+        controller.selectMembership(item.id);
     }
 
     const renderMembeship = (e: Membership)=>{
@@ -33,7 +31,7 @@ export default function PanelMembeship(){
     }
 
     const onMembershipUpdate = ()=>{
-        update();
+        controller.load();
     }
     
     return (
