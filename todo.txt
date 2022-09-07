@@ -1,3 +1,4 @@
 1)create panel to modify membership cost(x)
 2)add to each user their membership
 3) save users in localstorage in userRepo(x)
+test
